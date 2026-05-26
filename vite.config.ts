@@ -32,7 +32,7 @@ export default defineConfig({
     outDir: "./dist",
     sourcemap: false,
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         inlineDynamicImports: false,

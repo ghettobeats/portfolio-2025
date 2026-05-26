@@ -41,23 +41,38 @@ class Resources extends EventEmitter<{
 
     for (const source of sources) {
       if (source.type === "gltfModel") {
-        this.loaders.gltfLoader.load(source.path, (file) => {
-          this.sourceLoaded(source, file);
-        });
+        this.loaders.gltfLoader.load(
+          source.path,
+          (file) => {
+            this.sourceLoaded(source, file);
+          },
+          undefined,
+          () => {
+            this.sourceLoaded(source, null);
+          },
+        );
       } else if (source.type === "texture") {
-        this.loaders.textureLoader.load(source.path, (file: Texture) => {
-          file.colorSpace = SRGBColorSpace;
-          this.sourceLoaded(source, file);
-        });
+        this.loaders.textureLoader.load(
+          source.path,
+          (file: Texture) => {
+            file.colorSpace = SRGBColorSpace;
+            this.sourceLoaded(source, file);
+          },
+          undefined,
+          () => {
+            this.sourceLoaded(source, null);
+          },
+        );
       }
     }
   }
 
-  sourceLoaded(source: { name: string; type: string; path: string }, file: ResourceType) {
-    this.items[source.name] = file;
+  sourceLoaded(source: { name: string; type: string; path: string }, file: ResourceType | null) {
+    if (file) {
+      this.items[source.name] = file;
+    }
 
     this.loaded++;
-
     this.emit("progress", this.loaded / this.toLoad);
 
     if (this.loaded === this.toLoad) {

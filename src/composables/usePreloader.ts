@@ -39,4 +39,12 @@ export const usePreloader = () => {
     },
     { immediate: true },
   );
+
+  setTimeout(() => {
+    if (preloaderVisible.value) {
+      document.body.classList.remove("is-loading");
+      document.querySelector(".preloader")?.classList.add("preloader-hidden");
+      preloaderVisible.value = false;
+    }
+  }, 15000);
 };
