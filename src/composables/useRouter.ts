@@ -1,15 +1,17 @@
 export const useRouter = () => {
+  const base = import.meta.env.BASE_URL;
+
   const push = (path: string) => {
     if (typeof window !== "undefined") {
       // The intercepted pushState in useRoute.ts will automatically trigger path updates
-      window.history.pushState(null, "", path);
+      window.history.pushState(null, "", base + path);
     }
   };
 
   const replace = (path: string) => {
     if (typeof window !== "undefined") {
       // The intercepted replaceState in useRoute.ts will automatically trigger path updates
-      window.history.replaceState(null, "", path);
+      window.history.replaceState(null, "", base + path);
     }
   };
 

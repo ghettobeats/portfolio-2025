@@ -20,6 +20,7 @@ const handleBackToTop = () => {
 };
 
 const { withSocial = true } = defineProps<Props>();
+const base = import.meta.env.BASE_URL;
 const showAttribution = import.meta.env.VITE_SHOW_ATTRIBUTION !== "false";
 </script>
 
@@ -45,7 +46,7 @@ const showAttribution = import.meta.env.VITE_SHOW_ATTRIBUTION !== "false";
           <div class="footer-top-links-legal">
             <Clickable renderAs="div">
               <Link
-                :href="locale === 'de' ? '/de/privacy' : '/privacy'"
+                :href="locale === 'de' ? `${base}de/privacy` : `${base}privacy`"
                 class="footer-link"
                 :external="true"
                 data-cursor="circle-white"
@@ -56,7 +57,7 @@ const showAttribution = import.meta.env.VITE_SHOW_ATTRIBUTION !== "false";
             </Clickable>
             <Clickable renderAs="div">
               <Link
-                :href="locale === 'de' ? '/de/legal' : '/legal'"
+                :href="locale === 'de' ? `${base}de/legal` : `${base}legal`"
                 class="footer-link children-unclickable"
                 :external="true"
                 data-cursor="circle-white"

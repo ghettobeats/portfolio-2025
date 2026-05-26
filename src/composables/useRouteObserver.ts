@@ -5,7 +5,12 @@ import { isTransitioning } from "./useProjectTransition";
 // GLOBAL REACTIVE PATH
 // -----------------------------------------------------------------------------
 
-export const path = ref(typeof window !== "undefined" ? window.location.pathname : "/");
+const base = import.meta.env.BASE_URL;
+export const path = ref(
+  typeof window !== "undefined"
+    ? window.location.pathname.replace(base, "") || "/"
+    : "/"
+);
 
 // -----------------------------------------------------------------------------
 // COMPUTED HELPERS
@@ -66,7 +71,7 @@ function patchHistory() {
 
 export function useRouteObserver() {
   const update = () => {
-    const newPath = window.location.pathname;
+    const newPath = window.location.pathname.replace(base, "") || "/";
     if (newPath !== path.value) {
       path.value = newPath;
     }
